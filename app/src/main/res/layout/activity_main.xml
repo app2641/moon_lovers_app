@@ -47,6 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/today"
-        app:srcCompat="@drawable/ic_moon08"
-        tools:srcCompat="@drawable/ic_moon08" />
+        app:srcCompat="@drawable/img_moon01"
+        tools:srcCompat="@drawable/img_moon01" />
 </androidx.constraintlayout.widget.ConstraintLayout>
