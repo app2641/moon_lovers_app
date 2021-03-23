@@ -2,17 +2,26 @@ package com.example.moonlovers
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.moonlovers.databinding.ActivityMainBinding
-import java.time.LocalDate
+import com.example.moonlovers.overview.OverviewViewModel
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    private val viewModel: OverviewViewModel by lazy {
+        ViewModelProvider(this).get(OverviewViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
         val view = binding.root
         setContentView(view)
         setSupportActionBar(binding.mainToolbar)
@@ -20,11 +29,17 @@ class MainActivity : AppCompatActivity() {
         setTodayText()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMoonAgeProperties()
+        setTodayText()
+    }
+
     private fun setTodayText() {
-        val current = LocalDate.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日")
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss")
         val formattedText = current.format(formatter)
 
-        binding.today.text = formattedText
+        binding?.today.text = formattedText
     }
 }
