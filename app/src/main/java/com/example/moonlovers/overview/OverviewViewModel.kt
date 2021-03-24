@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 private const val TAG = "API"
 
 class OverviewViewModel : ViewModel() {
-    private val _age = MutableLiveData<String>()
+    private val _age = MutableLiveData<Double>()
 
-    val age: LiveData<String>
+    val age: LiveData<Double>
         get() = _age
 
     init {
@@ -25,7 +25,7 @@ class OverviewViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val moonAge: MoonAgeProperty = MoonAgeApi.retrofitService.getMoonAge()
-                _age.value = moonAge.age.toString()
+                _age.value = moonAge.age
                 Log.e(TAG, "success!!!")
             } catch (e: Exception) {
                 Log.e(TAG, "test", e)

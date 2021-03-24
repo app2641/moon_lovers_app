@@ -40,9 +40,9 @@
             android:id="@+id/moon_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
+            android:age="@{viewModel.age}"
             android:textSize="36sp"
-            android:text="@{viewModel.age}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moon"
@@ -56,8 +56,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/today"
-            app:srcCompat="@drawable/img_moon01"
-            tools:srcCompat="@drawable/img_moon01" />
+            app:srcCompat="@drawable/img_moon15"
+            app:age="@{viewModel.age}"
+            tools:srcCompat="@drawable/img_moon15" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible"
+            android:indeterminate="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
