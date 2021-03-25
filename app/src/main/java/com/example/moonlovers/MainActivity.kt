@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         setSupportActionBar(binding.mainToolbar)
 
         setTodayText()
@@ -36,10 +35,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTodayText() {
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss")
-        val formattedText = current.format(formatter)
+        binding?.let {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss")
+            val formattedText = current.format(formatter)
 
-        binding?.today.text = formattedText
+            binding.today.text = formattedText
+        }
     }
 }
