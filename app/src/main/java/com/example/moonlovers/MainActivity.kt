@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun setTodayText() {
         binding?.let {
             val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss")
+            val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm")
             val formattedText = current.format(formatter)
 
             binding.today.text = formattedText
