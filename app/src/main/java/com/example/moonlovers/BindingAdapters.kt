@@ -5,16 +5,17 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import kotlin.math.roundToInt
 
 object BindingAdapters {
     @BindingAdapter("age")
     @JvmStatic
-    fun bindImage(imageView: ImageView, age: Double?) {
+    fun bindImage(imageView: ImageView, age: String?) {
         if (age == null) {
             imageView.setImageResource(R.drawable.img_moon15)
         } else {
             val context = imageView.context
-            val imgNumber: String = Math.round(age).toInt().toString()
+            val imgNumber: String = age.toDouble().roundToInt().toString()
             val resource = context.resources.getIdentifier(
                 "img_moon$imgNumber",
                 "drawable",
@@ -26,10 +27,10 @@ object BindingAdapters {
 
     @BindingAdapter("age")
     @JvmStatic
-    fun bindText(textView: TextView, age: Double?) {
+    fun bindText(textView: TextView, age: String?) {
         age?.let {
             textView.visibility = View.VISIBLE
-            textView.text = age.toString()
+            textView.text = age
         }
     }
 }
