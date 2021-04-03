@@ -54,7 +54,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     private fun twoHoursHavePassed(): Boolean {
         return try {
             val fetchedDateTime = LocalDateTime.parse(lastFetchedAt, formatter)
-            val minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(), fetchedDateTime)
+            val minutes = ChronoUnit.MINUTES.between(fetchedDateTime, LocalDateTime.now())
 
             120 < minutes
         } catch(e: Exception) {
