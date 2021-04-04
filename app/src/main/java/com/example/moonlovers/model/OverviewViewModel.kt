@@ -36,18 +36,23 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         get() = _status
 
     fun getMoonAgeProperties() {
+        setApiStatus(MoonLoversApiStatus.LOADING)
+
         if (twoHoursHavePassed()) {
             viewModelScope.launch {
                 try {
                     val moonAge: MoonAgeProperty = MoonAgeApi.retrofitService.getMoonAge()
                     _age.value = moonAge.age.toString()
+                    setApiStatus(MoonLoversApiStatus.DONE)
                     updatePref()
                 } catch (e: Exception) {
                     Log.e("MoonLover", "Log", e)
+                    setApiStatus(MoonLoversApiStatus.ERROR)
                 }
             }
         } else {
             _age.value = moonLoverPref.getMoonAge()
+           setApiStatus(MoonLoversApiStatus.DONE)
         }
     }
 
@@ -69,5 +74,9 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         moonLoverPref.putMoonAge(_age.value.toString())
             .putLastFetchedAt(lastFetchedAt)
             .apply()
+    }
+
+    private fun setApiStatus(status: MoonLoversApiStatus) {
+        _status.value = status
     }
 }

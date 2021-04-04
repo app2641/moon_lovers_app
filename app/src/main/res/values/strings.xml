@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Moon Lovers</string>
+    <string name="fetch_moon_age_failed">月齢を取得できませんでした</string>
 </resources>

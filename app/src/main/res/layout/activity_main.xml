@@ -41,11 +41,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
+            app:age="@{viewModel.age}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/today"
             app:srcCompat="@drawable/img_moon15"
-            app:age="@{viewModel.age}"
             tools:srcCompat="@drawable/img_moon15" />
 
         <TextView
@@ -54,7 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:textSize="36sp"
+            android:visibility="invisible"
             app:age="@{viewModel.age}"
+            app:apiStatus="@{viewModel.status}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moon"
@@ -64,11 +66,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:indeterminate="true"
+            app:apiStatus="@{viewModel.status}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moon" />
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            android:text="@string/fetch_moon_age_failed"
+            app:toastStatus="@{viewModel.status}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moon"
+            tools:text="月齢を取得できませんでした" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
