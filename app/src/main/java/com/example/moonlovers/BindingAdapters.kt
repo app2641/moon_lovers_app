@@ -67,7 +67,7 @@ object BindingAdapters {
     fun bindErrorViewStatus(textView: TextView, status: MoonLoversApiStatus) {
         if (status == MoonLoversApiStatus.ERROR) {
             textView.visibility = View.VISIBLE
-            Toast.makeText(textView.context, "時間を空けてから再度お試しください",Toast.LENGTH_SHORT).show()
+            Toast.makeText(textView.context, "時間を空けてから再度お試しください",Toast.LENGTH_LONG).show()
         } else {
             textView.visibility = View.INVISIBLE
         }
