@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Moon Lovers</string>
     <string name="fetch_moon_age_failed">月齢を取得できませんでした</string>
+    <string name="fcm_channel_id" translatable="false">moon_lovers_fcm_channel</string>
+    <string name="fcm_channel_name" translatable="false">月齢通知</string>
+    <string name="fcm_channel_description" translatable="false">月齢通知に関する設定です</string>
 </resources>

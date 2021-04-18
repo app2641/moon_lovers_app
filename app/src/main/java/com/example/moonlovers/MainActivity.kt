@@ -1,5 +1,9 @@
 package com.example.moonlovers
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getMoonAgeProperties()
         setTodayText()
+
+        createNotificationChannel()
     }
 
     override fun onResume() {
@@ -42,6 +48,22 @@ class MainActivity : AppCompatActivity() {
             val formattedText = current.format(formatter)
 
             binding.today.text = formattedText
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                getString(R.string.fcm_channel_id),
+                getString(R.string.fcm_channel_name),
+                NotificationManager.IMPORTANCE_LOW
+            ).apply {
+                setShowBadge(false)
+                description = getString(R.string.fcm_channel_description)
+            }
+
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(notificationChannel)
         }
     }
 }
