@@ -1,4 +1,4 @@
-package com.example.moonlovers.preferences
+package com.app2641.moonlovers.preferences
 
 import android.content.Context
 import android.content.SharedPreferences

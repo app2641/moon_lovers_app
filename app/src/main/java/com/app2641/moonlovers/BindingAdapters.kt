@@ -1,12 +1,12 @@
 
-package com.example.moonlovers
+package com.app2641.moonlovers
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import com.example.moonlovers.model.MoonLoversApiStatus
+import com.app2641.moonlovers.model.MoonLoversApiStatus
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlin.math.roundToInt
 

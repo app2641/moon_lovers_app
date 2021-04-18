@@ -11,7 +11,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.moonlovers"
+        applicationId "com.app2641.moonlovers"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1

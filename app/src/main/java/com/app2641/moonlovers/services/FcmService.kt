@@ -1,9 +1,9 @@
-package com.example.moonlovers.services
+package com.app2641.moonlovers.services
 
 import android.app.NotificationManager
 import android.util.Log
 import androidx.core.content.ContextCompat
-import com.example.moonlovers.utils.sendNotification
+import com.app2641.moonlovers.utils.sendNotification
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

@@ -1,4 +1,4 @@
-package com.example.moonlovers.model
+package com.app2641.moonlovers.model
 
 import android.app.Application
 import android.util.Log
@@ -6,9 +6,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moonlovers.network.MoonAgeApi
-import com.example.moonlovers.network.MoonAgeProperty
-import com.example.moonlovers.preferences.MoonLoversPreference
+import com.app2641.moonlovers.network.MoonAgeApi
+import com.app2641.moonlovers.network.MoonAgeProperty
+import com.app2641.moonlovers.preferences.MoonLoversPreference
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

@@ -1,4 +1,4 @@
-package com.example.moonlovers
+package com.app2641.moonlovers
 
 import org.junit.Test
 

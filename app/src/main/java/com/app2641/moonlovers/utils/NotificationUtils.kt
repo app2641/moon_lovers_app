@@ -1,4 +1,4 @@
-package com.example.moonlovers.utils
+package com.app2641.moonlovers.utils
 
 import android.app.NotificationManager
 import android.content.Context

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.moonlovers">
+    package="com.app2641.moonlovers">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

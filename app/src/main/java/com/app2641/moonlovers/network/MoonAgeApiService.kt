@@ -1,4 +1,4 @@
-package com.example.moonlovers.network
+package com.app2641.moonlovers.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

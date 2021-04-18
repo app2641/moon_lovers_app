@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.moonlovers.model.OverviewViewModel" />
+            type="com.app2641.moonlovers.model.OverviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

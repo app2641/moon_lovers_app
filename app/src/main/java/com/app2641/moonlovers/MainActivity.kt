@@ -1,4 +1,4 @@
-package com.example.moonlovers
+package com.app2641.moonlovers
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,8 +7,8 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.moonlovers.databinding.ActivityMainBinding
-import com.example.moonlovers.model.OverviewViewModel
+import com.app2641.moonlovers.databinding.ActivityMainBinding
+import com.app2641.moonlovers.model.OverviewViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
