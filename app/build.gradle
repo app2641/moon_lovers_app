@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -66,4 +67,11 @@ dependencies {
 
     // Preference
     implementation "androidx.preference:preference-ktx:$version_pref"
+
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$version_firebase_bom")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation "com.google.firebase:firebase-core:$version_firebase_core"
+    implementation "com.google.firebase:firebase-iid:$version_firebase_iid"
+    implementation "com.google.firebase:firebase-messaging:$version_firebase_messaging"
 }

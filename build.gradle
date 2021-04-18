@@ -8,6 +8,11 @@ buildscript {
         version_retrofit = "2.9.0"
         version_glide = "4.8.0"
         version_pref = "1.1.1"
+        version_google_service = "4.3.5"
+        version_firebase_bom = "27.0.0"
+        version_firebase_core = "17.0.0"
+        version_firebase_iid = "19.0.1"
+        version_firebase_messaging = "19.0.1"
     }
     repositories {
         google()
@@ -16,6 +21,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$version_android_gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.gms:google-services:$version_google_service"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
