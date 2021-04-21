@@ -4,7 +4,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 import com.app2641.moonlovers.MainActivity
 import com.app2641.moonlovers.R
@@ -19,11 +18,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             PendingIntent.FLAG_UPDATE_CURRENT
     )
 
-    val icon = BitmapFactory.decodeResource(
-            applicationContext.resources,
-            R.drawable.img_moon15
-    )
-
     val builder = NotificationCompat.Builder(
             applicationContext,
             applicationContext.getString(R.string.fcm_channel_id)
@@ -31,7 +25,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             .setSmallIcon(R.drawable.img_moon15)
             .setContentTitle(applicationContext.getString(R.string.fcm_channel_name))
             .setContentIntent(contentPendingIntent)
-            .setLargeIcon(icon)
+            .setLargeIcon(ResourceUtils.getBitmap(applicationContext, R.drawable.img_moon15))
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setAutoCancel(true)
 
