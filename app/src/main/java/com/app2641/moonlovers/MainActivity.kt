@@ -5,10 +5,12 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.app2641.moonlovers.databinding.ActivityMainBinding
 import com.app2641.moonlovers.model.OverviewViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         setTodayText()
 
         createNotificationChannel()
+        subscribeTopic()
     }
 
     override fun onResume() {
@@ -65,5 +68,16 @@ class MainActivity : AppCompatActivity() {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)
         }
+    }
+
+    private fun subscribeTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic(getString(R.string.fcm_tonight_topic))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d("create topic", "success!")
+                    } else {
+                        Log.d("create topic", "failure!")
+                    }
+                }
     }
 }
