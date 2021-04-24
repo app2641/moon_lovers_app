@@ -37,7 +37,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     fun getMoonAgeProperties() {
         setApiStatus(MoonLoversApiStatus.LOADING)
 
-        if (twoHoursHavePassed()) {
+        if (twoHoursHavePassed() || overTwentyOclock()) {
             viewModelScope.launch {
                 try {
                     val moonAge: MoonAgeProperty = MoonAgeApi.retrofitService.getMoonAge()
@@ -66,6 +66,14 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
             Log.e("MoonLover", "Log", e)
             false
         }
+    }
+
+    private fun overTwentyOclock(): Boolean {
+        val twentyOclock = now().withHour(22).withMinute(0).withSecond(0)
+        val fetchedDateTime = ZonedDateTime.parse(lastFetchedAt)
+        val minutes = ChronoUnit.MINUTES.between(fetchedDateTime, twentyOclock)
+
+        return minutes <= 0
     }
 
     private fun updatePref() {
