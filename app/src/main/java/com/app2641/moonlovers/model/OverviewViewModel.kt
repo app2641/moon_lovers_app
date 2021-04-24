@@ -10,7 +10,8 @@ import com.app2641.moonlovers.network.MoonAgeApi
 import com.app2641.moonlovers.network.MoonAgeProperty
 import com.app2641.moonlovers.preferences.MoonLoversPreference
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
@@ -22,8 +23,6 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     }
 
     private val lastFetchedAt = moonLoverPref.getLastFetchedAt()
-
-    private val formatter =  DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm")
 
     private val _age = MutableLiveData<String>()
 
@@ -44,6 +43,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
                     val moonAge: MoonAgeProperty = MoonAgeApi.retrofitService.getMoonAge()
                     _age.value = moonAge.age.toString()
                     setApiStatus(MoonLoversApiStatus.DONE)
+                    Log.e("MoonLover", "age: " + moonAge.age.toString())
                     updatePref()
                 } catch (e: Exception) {
                     Log.e("MoonLover", "Log", e)
@@ -51,25 +51,25 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
                 }
             }
         } else {
-            _age.value = moonLoverPref.getMoonAge()
+           _age.value = moonLoverPref.getMoonAge()
            setApiStatus(MoonLoversApiStatus.DONE)
         }
     }
 
     private fun twoHoursHavePassed(): Boolean {
         return try {
-            val fetchedDateTime = LocalDateTime.parse(lastFetchedAt, formatter)
-            val minutes = ChronoUnit.MINUTES.between(fetchedDateTime, LocalDateTime.now())
+            val fetchedDateTime = ZonedDateTime.parse(lastFetchedAt)
+            val minutes = ChronoUnit.MINUTES.between(fetchedDateTime, now())
 
             120 < minutes
         } catch(e: Exception) {
+            Log.e("MoonLover", "Log", e)
             false
         }
     }
 
     private fun updatePref() {
-        val current = LocalDateTime.now()
-        val lastFetchedAt = current.format(formatter)
+        val lastFetchedAt = now().format(DateTimeFormatter.ISO_DATE_TIME)
 
         moonLoverPref.putMoonAge(_age.value.toString())
             .putLastFetchedAt(lastFetchedAt)
@@ -78,5 +78,9 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     private fun setApiStatus(status: MoonLoversApiStatus) {
         _status.value = status
+    }
+
+    private fun now(): ZonedDateTime {
+        return ZonedDateTime.now(ZoneId.of("Asia/Tokyo"))
     }
 }
