@@ -27,6 +27,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             .setSmallIcon(R.drawable.ic_moon_lovers_notification)
             .setColor(R.color.grey_500)
             .setContentTitle(applicationContext.getString(R.string.fcm_channel_name))
+            .setContentText(messageBody)
             .setContentIntent(contentPendingIntent)
             .setLargeIcon(ResourceUtils.getBitmap(applicationContext, R.drawable.img_moon15))
             .setPriority(NotificationCompat.PRIORITY_LOW)

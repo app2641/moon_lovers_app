@@ -74,9 +74,9 @@ class MainActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().subscribeToTopic(getString(R.string.fcm_tonight_topic))
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Log.d("create topic", "success!")
+                        Log.d("ML dev", "success!")
                     } else {
-                        Log.d("create topic", "failure!")
+                        Log.d("ML dev", "failure!")
                     }
                 }
     }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Moon Lovers</string>
     <string name="fcm_tonight_topic">production-android-tonight</string>
 </resources>

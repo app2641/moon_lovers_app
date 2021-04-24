@@ -10,17 +10,17 @@ import com.google.firebase.messaging.RemoteMessage
 class FcmService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         remoteMessage.data?.let {
-            Log.e(TAG, "Message data payload" + remoteMessage.data)
+            Log.d("ML dev", "Message data payload" + remoteMessage.data)
         }
 
         remoteMessage.notification?.let {
-            Log.e(TAG, "Message Notification Body: ${it.body}")
-            sendNotification(it.body!!)
+            Log.d("ML dev", "Message Notification Body: ${it.body}")
+            sendNotification(it.body as String)
         }
     }
 
     override fun onNewToken(token: String) {
-        Log.e(TAG, "Refreshed token: $token")
+        Log.d("ML dev", "Refreshed token: $token")
 
         sendRegistrationServer(token)
     }
@@ -32,9 +32,5 @@ class FcmService : FirebaseMessagingService() {
 
     private fun sendRegistrationServer(token: String) {
 
-    }
-
-    companion object {
-        private const val TAG = "FcmService"
     }
 }
