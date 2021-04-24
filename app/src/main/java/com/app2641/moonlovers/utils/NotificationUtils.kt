@@ -29,7 +29,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             .setContentTitle(applicationContext.getString(R.string.fcm_channel_name))
             .setContentText(messageBody)
             .setContentIntent(contentPendingIntent)
-            .setLargeIcon(ResourceUtils.getBitmap(applicationContext, R.drawable.img_moon15))
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setAutoCancel(true)
 
