@@ -37,22 +37,17 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     fun getMoonAgeProperties() {
         setApiStatus(MoonLoversApiStatus.LOADING)
 
-        if (twoHoursHavePassed() || overTwentyOclock()) {
-            viewModelScope.launch {
-                try {
-                    val moonAge: MoonAgeProperty = MoonAgeApi.retrofitService.getMoonAge()
-                    _age.value = moonAge.age.toString()
-                    setApiStatus(MoonLoversApiStatus.DONE)
-                    Log.e("MoonLover", "age: " + moonAge.age.toString())
-                    updatePref()
-                } catch (e: Exception) {
-                    Log.e("MoonLover", "Log", e)
-                    setApiStatus(MoonLoversApiStatus.ERROR)
-                }
+        when {
+            twoHoursHavePassed() -> {
+                fetchMoonAge()
             }
-        } else {
-           _age.value = moonLoverPref.getMoonAge()
-           setApiStatus(MoonLoversApiStatus.DONE)
+            overTwentyOclock() -> {
+                fetchMoonAge()
+            }
+            else -> {
+                _age.value = moonLoverPref.getMoonAge()
+                setApiStatus(MoonLoversApiStatus.DONE)
+            }
         }
     }
 
@@ -68,12 +63,38 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    // 22時を過ぎていて、かつlastFetchedAtが22時前かどうか
     private fun overTwentyOclock(): Boolean {
+        // 現在日時が22時を過ぎているかどうか
         val twentyOclock = now().withHour(22).withMinute(0).withSecond(0)
-        val fetchedDateTime = ZonedDateTime.parse(lastFetchedAt)
-        val minutes = ChronoUnit.MINUTES.between(fetchedDateTime, twentyOclock)
+        val ret = ChronoUnit.MINUTES.between(now(), twentyOclock)
 
-        return minutes <= 0
+        // 22時前だと正の値になる
+        if (ret <= 0) {
+            return false
+        }
+
+        // 最終取得日時が22時前かどうか
+        val fetchedDateTime = ZonedDateTime.parse(lastFetchedAt)
+        val ret2 = ChronoUnit.MINUTES.between(fetchedDateTime, twentyOclock)
+
+        // 22時前だと正の値になる
+        return 0 < ret2
+    }
+
+    private fun fetchMoonAge() {
+        viewModelScope.launch {
+            try {
+                val moonAge: MoonAgeProperty = MoonAgeApi.retrofitService.getMoonAge()
+                _age.value = moonAge.age.toString()
+                setApiStatus(MoonLoversApiStatus.DONE)
+                Log.e("MoonLover", "age: " + moonAge.age.toString())
+                updatePref()
+            } catch (e: Exception) {
+                Log.e("MoonLover", "Log", e)
+                setApiStatus(MoonLoversApiStatus.ERROR)
+            }
+        }
     }
 
     private fun updatePref() {
