@@ -6,31 +6,36 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.app2641.moonlovers.MainActivity
 import com.app2641.moonlovers.R
 
-@SuppressLint("ResourceAsColor")
-fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+class NotificationUtils {
+    companion object {
+        fun sendNotification(messageBody: String, context: Context) {
+            val contentIntent = Intent(context, MainActivity::class.java)
 
-    val contentPendingIntent = PendingIntent.getActivity(
-            applicationContext,
-            0,
-            contentIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-    )
+            val contentPendingIntent = PendingIntent.getActivity(
+                    context,
+                    0,
+                    contentIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
-    val builder = NotificationCompat.Builder(
-            applicationContext,
-            applicationContext.getString(R.string.fcm_channel_id)
-    )
-            .setSmallIcon(R.drawable.ic_moon_lovers_notification)
-            .setColor(R.color.grey_500)
-            .setContentTitle(applicationContext.getString(R.string.fcm_channel_name))
-            .setContentText(messageBody)
-            .setContentIntent(contentPendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setAutoCancel(true)
+            val builder = NotificationCompat.Builder(
+                    context,
+                    context.getString(R.string.fcm_channel_id)
+            )
+                    .setSmallIcon(R.drawable.ic_moon_lovers_notification)
+                    .setColor(context.getColor(R.color.grey_500))
+                    .setContentTitle(context.getString(R.string.fcm_channel_name))
+                    .setContentText(messageBody)
+                    .setContentIntent(contentPendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .setAutoCancel(true)
 
-    notify(0, builder.build())
+            val manager = ContextCompat.getSystemService(context, NotificationManager::class.java) as NotificationManager
+            manager.notify(0, builder.build())
+        }
+    }
 }

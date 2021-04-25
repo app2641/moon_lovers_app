@@ -58,7 +58,6 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
             120 < minutes
         } catch(e: Exception) {
-            Log.e("MoonLover", "Log", e)
             false
         }
     }
