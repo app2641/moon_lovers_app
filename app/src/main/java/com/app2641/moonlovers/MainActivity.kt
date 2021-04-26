@@ -6,8 +6,12 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.OnRebindCallback
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionManager
 import com.app2641.moonlovers.databinding.ActivityMainBinding
 import com.app2641.moonlovers.model.OverviewViewModel
 import com.google.firebase.messaging.FirebaseMessaging
@@ -27,6 +31,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        // ビューの変更時にアニメーションする
+        binding.addOnRebindCallback(object : OnRebindCallback<ViewDataBinding>() {
+            override fun onPreBind(binding: ViewDataBinding?): Boolean {
+                TransitionManager.beginDelayedTransition(binding?.root as ViewGroup)
+                return super.onPreBind(binding)
+            }
+        })
 
         setContentView(binding.root)
         setSupportActionBar(binding.mainToolbar)
