@@ -2,6 +2,7 @@
 package com.app2641.moonlovers
 
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlin.math.roundToInt
 
 object BindingAdapters {
+    // 月齢の画像表示切り替え
     @BindingAdapter("age")
     @JvmStatic
     fun bindImage(imageView: ImageView, age: String?) {
@@ -28,6 +30,7 @@ object BindingAdapters {
         }
     }
 
+    // 月齢の表示
     @BindingAdapter("age")
     @JvmStatic
     fun bindText(textView: TextView, age: String?) {
@@ -36,6 +39,7 @@ object BindingAdapters {
         }
     }
 
+    // 月齢テキストビューの表示切り替え
     @BindingAdapter("apiStatus")
     @JvmStatic
     fun bindTextViewStatus(textView: TextView, status: MoonLoversApiStatus?) {
@@ -49,6 +53,7 @@ object BindingAdapters {
         }
     }
 
+    // APIリクエストインジケーターの表示切り替え
     @BindingAdapter("apiStatus")
     @JvmStatic
     fun bindIndicatorStatus(indicator: CircularProgressIndicator, status: MoonLoversApiStatus) {
@@ -62,6 +67,7 @@ object BindingAdapters {
         }
     }
 
+    // APIリクエストエラーのテキストビューとトースト表示の切り替え
     @BindingAdapter("toastStatus")
     @JvmStatic
     fun bindErrorViewStatus(textView: TextView, status: MoonLoversApiStatus) {
@@ -70,6 +76,17 @@ object BindingAdapters {
             Toast.makeText(textView.context, "時間を空けてから再度お試しください",Toast.LENGTH_LONG).show()
         } else {
             textView.visibility = View.INVISIBLE
+        }
+    }
+
+    // APIリクエストエラーのボタン表示の切り替え
+    @BindingAdapter("apiStatus")
+    @JvmStatic
+    fun bindRefreshButtonStatus(button: Button, status: MoonLoversApiStatus) {
+        if (status == MoonLoversApiStatus.ERROR) {
+            button.visibility = View.VISIBLE
+        } else {
+            button.visibility = View.INVISIBLE
         }
     }
 }

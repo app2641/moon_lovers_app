@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
+            android:contentDescription="@string/moon_age_image_description"
             app:age="@{viewModel.age}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +87,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moon"
             tools:text="月齢を取得できませんでした" />
+
+        <Button
+            android:id="@+id/refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/refresh_button_text"
+            android:visibility="invisible"
+            app:apiStatus="@{viewModel.status}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
