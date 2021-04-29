@@ -5,4 +5,6 @@
     <string name="fcm_channel_id" translatable="false">moon_lovers_fcm_channel</string>
     <string name="fcm_channel_name" translatable="false">月齢通知</string>
     <string name="fcm_channel_description" translatable="false">月齢通知に関する設定です</string>
+    <string name="menu_about_app">アプリについて</string>
+    <string name="menu_notification">通知設定</string>
 </resources>
