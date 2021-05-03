@@ -52,7 +52,7 @@
             android:id="@+id/moon_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:textSize="36sp"
             android:visibility="invisible"
             app:age="@{viewModel.age}"
@@ -65,9 +65,9 @@
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:visibility="visible"
+            android:layout_marginTop="24dp"
             android:indeterminate="true"
+            android:visibility="visible"
             app:apiStatus="@{viewModel.status}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,14 +77,14 @@
             android:id="@+id/error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/fetch_moon_age_failed"
             android:textSize="18sp"
             android:visibility="invisible"
-            android:text="@string/fetch_moon_age_failed"
-            app:toastStatus="@{viewModel.status}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moon"
+            app:toastStatus="@{viewModel.status}"
             tools:text="月齢を取得できませんでした" />
 
         <Button
