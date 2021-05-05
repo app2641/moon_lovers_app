@@ -1,6 +1,5 @@
 package com.app2641.moonlovers.utils
 
-import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -26,7 +25,7 @@ class NotificationUtils {
                     context,
                     context.getString(R.string.fcm_channel_id)
             )
-                    .setSmallIcon(R.drawable.ic_moon_lovers_notification)
+                    .setSmallIcon(R.drawable.ic_notification_icon)
                     .setColor(context.getColor(R.color.grey_500))
                     .setContentTitle(context.getString(R.string.fcm_channel_name))
                     .setContentText(messageBody)
