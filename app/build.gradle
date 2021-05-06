@@ -7,6 +7,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file(JKS_PATH)
+            keyAlias KEY_ALIAS
+            storePassword KEYSTORE_PASSWORD
+            keyPassword KEY_PASSWORD
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
