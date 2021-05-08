@@ -9,11 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.app2641.moonlovers.network.MoonAgeApi
 import com.app2641.moonlovers.network.MoonAgeProperty
 import com.app2641.moonlovers.preferences.MoonLoversPreference
+import com.app2641.moonlovers.utils.DateUtils
 import kotlinx.coroutines.launch
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 
 enum class MoonLoversApiStatus { LOADING, ERROR, DONE }
 
@@ -53,8 +50,8 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     private fun twoHoursHavePassed(): Boolean {
         return try {
-            val fetchedDateTime = ZonedDateTime.parse(lastFetchedAt)
-            val minutes = ChronoUnit.MINUTES.between(fetchedDateTime, now())
+            val fetchedDateTime = DateUtils.toZoneDateTime(lastFetchedAt)
+            val minutes = DateUtils.dateDiff(fetchedDateTime, DateUtils.now())
 
             120 < minutes
         } catch(e: Exception) {
@@ -65,8 +62,8 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     // 22時を過ぎていて、かつlastFetchedAtが22時前かどうか
     private fun overTwentyOclock(): Boolean {
         // 現在日時が22時を過ぎているかどうか
-        val twentyOclock = now().withHour(22).withMinute(0).withSecond(0)
-        val ret = ChronoUnit.MINUTES.between(now(), twentyOclock)
+        val twentyOclock = DateUtils.now().withHour(22).withMinute(0).withSecond(0)
+        val ret = DateUtils.dateDiff(DateUtils.now(), twentyOclock)
 
         // 22時前だと正の値になる
         if (ret <= 0) {
@@ -74,8 +71,8 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         }
 
         // 最終取得日時が22時前かどうか
-        val fetchedDateTime = ZonedDateTime.parse(lastFetchedAt)
-        val ret2 = ChronoUnit.MINUTES.between(fetchedDateTime, twentyOclock)
+        val fetchedDateTime = DateUtils.toZoneDateTime(lastFetchedAt)
+        val ret2 = DateUtils.dateDiff(fetchedDateTime, twentyOclock)
 
         // 22時前だと正の値になる
         return 0 < ret2
@@ -97,7 +94,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun updatePref() {
-        val lastFetchedAt = now().format(DateTimeFormatter.ISO_DATE_TIME)
+        val lastFetchedAt = DateUtils.toString(DateUtils.now())
 
         moonLoverPref.putMoonAge(_age.value.toString())
             .putLastFetchedAt(lastFetchedAt)
@@ -106,9 +103,5 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     private fun setApiStatus(status: MoonLoversApiStatus) {
         _status.value = status
-    }
-
-    private fun now(): ZonedDateTime {
-        return ZonedDateTime.now(ZoneId.of("Asia/Tokyo"))
     }
 }
