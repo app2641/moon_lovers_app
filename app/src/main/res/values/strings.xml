@@ -7,5 +7,6 @@
     <string name="fcm_channel_description" translatable="false">月齢通知に関する設定です</string>
     <string name="menu_about_app">アプリについて</string>
     <string name="menu_notification">通知設定</string>
+    <string name="about_app_title">About app</string>
     <string name="app_version">Ver 1.0</string>
 </resources>

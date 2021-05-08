@@ -14,7 +14,14 @@
         android:elevation="0dp"
         android:theme="@style/Theme.Toolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/mainToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_app_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/imageView"
