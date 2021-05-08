@@ -1,13 +1,8 @@
 package com.app2641.moonlovers
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -18,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import com.app2641.moonlovers.databinding.ActivityMainBinding
 import com.app2641.moonlovers.model.OverviewViewModel
+import com.app2641.moonlovers.services.NotificationService
 import com.app2641.moonlovers.services.ReviewFlowService
-import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -51,8 +46,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.getMoonAgeProperties()
         setTodayText()
 
-        createNotificationChannel()
-        subscribeTopic()
+        initNotification()
 
         ReviewFlowService(this).start()
     }
@@ -93,30 +87,10 @@ class MainActivity : AppCompatActivity() {
         binding.today.text = formattedText
     }
 
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                    getString(R.string.fcm_channel_id),
-                    getString(R.string.fcm_channel_name),
-                    NotificationManager.IMPORTANCE_LOW
-            ).apply {
-                setShowBadge(false)
-                description = getString(R.string.fcm_channel_description)
-            }
+    private fun initNotification() {
+        val notificationService = NotificationService(this)
 
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(notificationChannel)
-        }
-    }
-
-    private fun subscribeTopic() {
-        FirebaseMessaging.getInstance().subscribeToTopic(getString(R.string.fcm_tonight_topic))
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d("ML dev", "success!")
-                    } else {
-                        Log.d("ML dev", "failure!")
-                    }
-                }
+        notificationService.createNotificationChannel()
+        notificationService.subscribeTopic()
     }
 }
