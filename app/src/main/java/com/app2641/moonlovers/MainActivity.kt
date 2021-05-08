@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import com.app2641.moonlovers.databinding.ActivityMainBinding
 import com.app2641.moonlovers.model.OverviewViewModel
+import com.app2641.moonlovers.services.ReviewFlowService
 import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -52,6 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
         subscribeTopic()
+
+        ReviewFlowService(this).start()
     }
 
     override fun onResume() {

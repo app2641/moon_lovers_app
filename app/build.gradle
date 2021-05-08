@@ -88,4 +88,8 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$version_firebase_core"
     implementation "com.google.firebase:firebase-iid:$version_firebase_iid"
     implementation "com.google.firebase:firebase-messaging:$version_firebase_messaging"
+
+    // Play Core SDK
+    implementation "com.google.android.play:core:$version_play_core"
+    implementation "com.google.android.play:core-ktx:$version_play_core_ktx"
 }

@@ -3,11 +3,13 @@ package com.app2641.moonlovers.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.app2641.moonlovers.utils.DateUtils
 
 class MoonLoversPreference(context: Context) {
     companion object {
-        val LAST_FETCHED_AT_KEY = "last_fetched_at"
-        val MOON_AGE_KEY = "moon_age"
+        const val LAST_FETCHED_AT_KEY = "last_fetched_at"
+        const val MOON_AGE_KEY = "moon_age"
+        const val INSTALLED_AT = "initial_date_at"
     }
 
     private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -22,6 +24,19 @@ class MoonLoversPreference(context: Context) {
 
     fun getMoonAge(): String {
         return preference.getString(MOON_AGE_KEY, "15.0").toString()
+    }
+
+    fun getInstalledAt(): String {
+        var installedAt = preference.getString(INSTALLED_AT, null)
+
+        if (installedAt == null) {
+            installedAt = DateUtils.toString(DateUtils.now())
+
+            editor.putString(INSTALLED_AT, installedAt)
+            editor.apply()
+        }
+
+        return installedAt.toString()
     }
 
     fun putLastFetchedAt(lastFetchedAt: String): MoonLoversPreference {

@@ -48,6 +48,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    // 前回の取得から二時間が経過しているかどうか
     private fun twoHoursHavePassed(): Boolean {
         return try {
             val fetchedDateTime = DateUtils.toZoneDateTime(lastFetchedAt)
