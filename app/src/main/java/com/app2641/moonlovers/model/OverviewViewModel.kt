@@ -67,7 +67,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         val ret = DateUtils.dateDiff(DateUtils.now(), twentyOclock)
 
         // 22時前だと正の値になる
-        if (ret <= 0) {
+        if (0 <= ret) {
             return false
         }
 
@@ -75,8 +75,8 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         val fetchedDateTime = DateUtils.toZoneDateTime(lastFetchedAt)
         val ret2 = DateUtils.dateDiff(fetchedDateTime, twentyOclock)
 
-        // 22時前だと正の値になる
-        return 0 < ret2
+        // 最終取得日時が22時前だと正の値になる
+        return 0 <= ret2
     }
 
     private fun fetchMoonAge() {
