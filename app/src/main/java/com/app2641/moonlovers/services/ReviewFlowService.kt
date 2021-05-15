@@ -5,7 +5,7 @@ import com.app2641.moonlovers.MainActivity
 import com.app2641.moonlovers.preferences.MoonLoversPreference
 import com.app2641.moonlovers.utils.DateUtils
 import com.google.android.play.core.review.ReviewInfo
-import com.google.android.play.core.review.testing.FakeReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.android.play.core.tasks.Task
 
 class ReviewFlowService(mainActivity: MainActivity) {
@@ -20,33 +20,30 @@ class ReviewFlowService(mainActivity: MainActivity) {
 
         updateReviewedAt()
 
-        val manager = FakeReviewManager(context)
+        val manager = ReviewManagerFactory.create(context)
         val request = manager.requestReviewFlow()
         request.addOnCompleteListener { task: Task<ReviewInfo> ->
             if (task.isSuccessful) {
                 val reviewInfo = task.result
                 val flow = manager.launchReviewFlow(activity, reviewInfo)
-                flow.addOnCompleteListener {  }
+                flow.addOnCompleteListener {
+                    Log.d("ML dev", "Review success!!")
+                }
             } else {
-                Log.e("ML dev", task.exception?.message.toString())
+                Log.d("ML dev", task.exception?.message.toString())
             }
-        }
-        request.addOnFailureListener { e ->
-            Log.e("ML dev", e.message.toString())
         }
     }
 
-    private
-
     // インストールから一ヶ月後かどうか
-    fun isStart(): Boolean {
+    private fun isStart(): Boolean {
         val reviewedAt = DateUtils.toZoneDateTime(preference.getReviewedAt())
         val minutes = DateUtils.dateDiff(reviewedAt, DateUtils.now())
 
         return (60 * 24 * 30) < minutes
     }
 
-    fun updateReviewedAt() {
+    private fun updateReviewedAt() {
         val reviewedAt = DateUtils.toString(DateUtils.now())
 
         preference.putReviewedAt(reviewedAt).apply()
