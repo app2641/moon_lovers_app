@@ -3,6 +3,7 @@ package com.app2641.moonlovers
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -13,8 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import com.app2641.moonlovers.databinding.ActivityMainBinding
 import com.app2641.moonlovers.model.OverviewViewModel
+import com.app2641.moonlovers.preferences.MoonLoversPreference
 import com.app2641.moonlovers.services.NotificationService
-import com.app2641.moonlovers.services.ReviewFlowService
+import com.app2641.moonlovers.utils.DateUtils
+import com.google.android.play.core.review.ReviewManagerFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -23,6 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: OverviewViewModel by lazy {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
+    }
+
+    private val preference: MoonLoversPreference by lazy {
+        MoonLoversPreference(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +54,7 @@ class MainActivity : AppCompatActivity() {
         setTodayText()
 
         initNotification()
-
-        ReviewFlowService(this).start()
+        startReviewFlow()
     }
 
     override fun onResume() {
@@ -92,5 +98,37 @@ class MainActivity : AppCompatActivity() {
 
         notificationService.createNotificationChannel()
         notificationService.subscribeTopic()
+    }
+
+    private fun startReviewFlow() {
+        if (! isStartReviewFlow()) {
+            return
+        }
+
+        val manager = ReviewManagerFactory.create(this)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener {
+            if (it.isSuccessful) {
+                val reviewInfo = it.result
+                val flow = manager.launchReviewFlow(this, reviewInfo)
+                flow.addOnCompleteListener {
+                    Log.d("ML review flow", "completed")
+                    updateReviewedAt()
+                }
+            }
+        }
+    }
+
+    // インストール or レビュー時から一ヶ月後かどうか
+    private fun isStartReviewFlow(): Boolean {
+        val reviewedAt = DateUtils.toZoneDateTime(preference.getReviewedAt())
+        val minutes = DateUtils.dateDiff(reviewedAt, DateUtils.now())
+
+        return (60 * 24 * 30) < minutes
+    }
+
+    private fun updateReviewedAt() {
+        val reviewedAt = DateUtils.toString(DateUtils.now())
+        preference.putReviewedAt(reviewedAt).apply()
     }
 }
