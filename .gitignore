@@ -103,3 +103,4 @@ freeline/
 freeline_project_description.json
 
 gradle.properties
+app/release/app-release.aab
