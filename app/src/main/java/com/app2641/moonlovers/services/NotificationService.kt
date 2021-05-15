@@ -31,9 +31,9 @@ class NotificationService(applicationContext: Context) {
         FirebaseMessaging.getInstance().subscribeToTopic(context.getString(R.string.fcm_tonight_topic))
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("ML dev", "success!")
+                    Log.d("ML", "success subscribe topic!")
                 } else {
-                    Log.d("ML dev", "failure!")
+                    Log.d("ML", "failure subscribe topic!")
                 }
             }
     }

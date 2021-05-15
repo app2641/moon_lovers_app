@@ -8,12 +8,12 @@ import com.google.firebase.messaging.RemoteMessage
 class FcmService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         remoteMessage.notification?.let {
-            Log.d("ML dev", "Message Notification Body: ${it.body}")
+            Log.d("ML", "Message Notification Body: ${it.body}")
             NotificationUtils.sendNotification(it.body as String, applicationContext)
         }
     }
 
     override fun onNewToken(token: String) {
-        Log.d("ML dev", "Refreshed token: $token")
+        Log.d("ML", "Refreshed token: $token")
     }
 }

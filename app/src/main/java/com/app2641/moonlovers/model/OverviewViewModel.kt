@@ -85,10 +85,10 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
                 val moonAge: MoonAgeProperty = MoonAgeApi.retrofitService.getMoonAge()
                 _age.value = moonAge.age.toString()
                 setApiStatus(MoonLoversApiStatus.DONE)
-                Log.e("MoonLover", "age: " + moonAge.age.toString())
+                Log.e("ML: fetch age", moonAge.age.toString())
                 updatePref()
             } catch (e: Exception) {
-                Log.e("MoonLover", "Log", e)
+                Log.e("ML: fetch age failure", e.message, e)
                 setApiStatus(MoonLoversApiStatus.ERROR)
             }
         }
