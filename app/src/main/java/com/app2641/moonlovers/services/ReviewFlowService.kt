@@ -11,11 +11,14 @@ import com.google.android.play.core.tasks.Task
 class ReviewFlowService(mainActivity: MainActivity) {
     private val activity = mainActivity
     private val context = activity.applicationContext
+    private val preference = MoonLoversPreference(context)
 
     fun start() {
         if (!isStart()) {
             return
         }
+
+        updateReviewedAt()
 
         val manager = FakeReviewManager(context)
         val request = manager.requestReviewFlow()
@@ -37,10 +40,15 @@ class ReviewFlowService(mainActivity: MainActivity) {
 
     // インストールから一ヶ月後かどうか
     fun isStart(): Boolean {
-        val pref = MoonLoversPreference(context)
-        val installedAt = DateUtils.toZoneDateTime(pref.getInstalledAt())
-        val minutes = DateUtils.dateDiff(installedAt, DateUtils.now())
+        val reviewedAt = DateUtils.toZoneDateTime(preference.getReviewedAt())
+        val minutes = DateUtils.dateDiff(reviewedAt, DateUtils.now())
 
-        return 43200 < minutes
+        return (60 * 24 * 30) < minutes
+    }
+
+    fun updateReviewedAt() {
+        val reviewedAt = DateUtils.toString(DateUtils.now())
+
+        preference.putReviewedAt(reviewedAt).apply()
     }
 }

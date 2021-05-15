@@ -9,7 +9,7 @@ class MoonLoversPreference(context: Context) {
     companion object {
         const val LAST_FETCHED_AT_KEY = "last_fetched_at"
         const val MOON_AGE_KEY = "moon_age"
-        const val INSTALLED_AT = "initial_date_at"
+        const val REVIEWED_AT = "last_reviewed_at"
     }
 
     private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -26,17 +26,17 @@ class MoonLoversPreference(context: Context) {
         return preference.getString(MOON_AGE_KEY, "15.0").toString()
     }
 
-    fun getInstalledAt(): String {
-        var installedAt = preference.getString(INSTALLED_AT, null)
+    fun getReviewedAt(): String {
+        var reviewedAt = preference.getString(REVIEWED_AT, null)
 
-        if (installedAt == null) {
-            installedAt = DateUtils.toString(DateUtils.now())
+        if (reviewedAt == null) {
+            reviewedAt = DateUtils.toString(DateUtils.now())
 
-            editor.putString(INSTALLED_AT, installedAt)
+            editor.putString(REVIEWED_AT, reviewedAt)
             editor.apply()
         }
 
-        return installedAt.toString()
+        return reviewedAt.toString()
     }
 
     fun putLastFetchedAt(lastFetchedAt: String): MoonLoversPreference {
@@ -46,6 +46,11 @@ class MoonLoversPreference(context: Context) {
 
     fun putMoonAge(moonAge: String): MoonLoversPreference {
         editor.putString(MOON_AGE_KEY, moonAge)
+        return this
+    }
+
+    fun putReviewedAt(reviewedAt: String): MoonLoversPreference {
+        editor.putString(REVIEWED_AT, reviewedAt)
         return this
     }
 
