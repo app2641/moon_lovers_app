@@ -27,7 +27,7 @@ class AboutApp : AppCompatActivity() {
             intent.setAction(Intent.ACTION_VIEW)
             intent.addCategory(Intent.CATEGORY_BROWSABLE)
             intent.setData(Uri.parse("https://twitter.com/app2641"))
-
+            startActivity(intent)
         })
 
         // バージョン名を表示
