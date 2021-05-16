@@ -32,6 +32,6 @@ class AboutApp : AppCompatActivity() {
 
         // バージョン名を表示
         val version: TextView = findViewById<TextView>(R.id.version)
-        version.text = "Ver. ${BuildConfig.VERSION_NAME}"
+        version.text = "version ${BuildConfig.VERSION_NAME}"
     }
 }
