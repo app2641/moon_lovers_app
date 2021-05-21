@@ -26,7 +26,6 @@ class NotificationUtils {
                     context.getString(R.string.fcm_channel_id)
             )
                     .setSmallIcon(R.drawable.ic_notification_icon)
-                    .setColor(context.getColor(R.color.grey_500))
                     .setContentTitle(context.getString(R.string.fcm_channel_name))
                     .setContentText(messageBody)
                     .setContentIntent(contentPendingIntent)
