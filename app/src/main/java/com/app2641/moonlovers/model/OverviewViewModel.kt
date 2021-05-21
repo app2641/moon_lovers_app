@@ -35,7 +35,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         setApiStatus(MoonLoversApiStatus.LOADING)
 
         when {
-            oneHourHavePassed() -> {
+            twoHourHavePassed() -> {
                 fetchMoonAge()
             }
             overTwentyOclock() -> {
@@ -48,13 +48,13 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    // 前回の取得から一時間が経過しているかどうか
-    private fun oneHourHavePassed(): Boolean {
+    // 前回の取得から二時間が経過しているかどうか
+    private fun twoHourHavePassed(): Boolean {
         return try {
             val fetchedDateTime = DateUtils.toZoneDateTime(lastFetchedAt)
             val minutes = DateUtils.dateDiff(fetchedDateTime, DateUtils.now())
 
-            60 < minutes
+            120 < minutes
         } catch(e: Exception) {
             false
         }
